@@ -1,0 +1,57 @@
+import pandas as pd
+import numpy as np
+data = pd.read_csv('CV_34_CAT.csv') # Jupyter\
+
+def divide(data):
+    inf = pd.DataFrame(columns = ['how_many','how_many_correct','%correct','tr_average','tr_sd','tr_median'],index = ['A->X','sm->A','sm->X','sm->sm'])
+    zer = data[data['target_type'] == 0]
+    two = data[data['target_type'] == 2]
+    three = data[data['target_type'] == 3]
+    five = data[data['target_type'] == 5]
+    conditions = ['three','zer','two','five']
+    for i in conditions:
+        if i == 'five':
+            inf['how_many']['A->X'] = len(five['lit2'])
+            inf['how_many_correct']['A->X'] = five[five['key_resp_4.keys'] == 'z'].count()['key_resp_4.keys']
+            inf['%correct']['A->X'] = (inf['how_many_correct']['A->X'])/ len(five['lit2'])*100
+            inf['tr_average']['A->X'] = five[five['key_resp_4.rt'] != 'NaN'].mean()['key_resp_4.rt']
+            inf['tr_sd']['A->X'] = five[five['key_resp_4.rt'] != 'NaN'].std()['key_resp_4.rt']
+            inf['tr_median']['A->X'] = five[five['key_resp_4.rt'] != 'NaN'].median()['key_resp_4.rt']
+        elif i == 'zer':
+            inf['how_many']['sm->sm'] = len(zer['lit2'])
+            inf['how_many_correct']['sm->sm'] = zer[zer['key_resp_4.keys'] == 'None'].count()['key_resp_4.keys']
+            inf['%correct']['sm->sm'] = (inf['how_many_correct']['sm->sm'])/ len(zer['lit2'])*100
+            if inf['%correct']['sm->sm'] != 100:
+                inf['tr_average']['sm->sm'] = zer[zer['key_resp_4.rt'] != 'NaN'].mean()['key_resp_4.rt']
+                inf['tr_sd']['sm->sm'] = zer[zer['key_resp_4.rt'] != 'NaN'].std()['key_resp_4.rt']
+                inf['tr_median']['sm->sm'] = zer[zer['key_resp_4.rt'] != 'NaN'].median()['key_resp_4.rt']
+            else:
+                inf['tr_average']['sm->sm'] = -1
+                inf['tr_sd']['sm->sm'] = -1
+                inf['tr_median']['sm->sm'] = -1
+        elif i == 'two':
+            inf['how_many_correct']['sm->A'] = two[two['key_resp_4.keys'] == 'None'].count()['key_resp_4.keys']
+            inf['%correct']['sm->A'] = ((inf['how_many_correct']['sm->A'])/ len(two['lit2']))*100
+            inf['how_many']['sm->A'] = len(two['lit2'])
+            if inf['%correct']['sm->A'] != 100:
+                inf['tr_average']['sm->A'] = two[two['key_resp_4.rt'] != 'NaN'].mean()['key_resp_4.rt']
+                inf['tr_sd']['sm->A'] = two[two['key_resp_4.rt'] != 'NaN'].std()['key_resp_4.rt']
+                inf['tr_median']['sm->A'] = two[two['key_resp_4.rt'] != 'NaN'].median()['key_resp_4.rt']
+            else:
+                inf['tr_average']['sm->A'] = -1
+                inf['tr_sd']['sm->A'] = -1
+                inf['tr_median']['sm->A'] = -1
+        elif i == 'three':
+            inf['how_many']['sm->X'] = len(three['lit2'])
+            inf['how_many_correct']['sm->X'] = three[three['key_resp_4.keys'] == 'None'].count()['key_resp_4.keys']
+            inf['%correct']['sm->X'] = (inf['how_many_correct']['sm->X'])/ len(three['lit2'])*100
+            if inf['%correct']['sm->X'] != 100:
+                inf['tr_average']['sm->X'] = three[three['key_resp_4.rt'] != 'NaN'].mean()['key_resp_4.rt']
+                inf['tr_sd']['sm->X'] = three[three['key_resp_4.rt'] != 'NaN'].std()['key_resp_4.rt']
+                inf['tr_median']['sm->X'] = three[three['key_resp_4.rt'] != 'NaN'].median()['key_resp_4.rt']
+            else:
+                inf['tr_average']['sm->X'] = -1
+                inf['tr_sd']['sm->X'] = -1
+                inf['tr_median']['sm->X'] = -1
+    return inf
+divide(data)
