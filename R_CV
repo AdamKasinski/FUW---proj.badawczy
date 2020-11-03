@@ -1,0 +1,118 @@
+data = read.csv("CV_34_CAT.csv")
+colnames(data)
+
+ile_AX = function(dane){
+  ile = 0
+  for (row in 1:nrow(dane)){
+    if (data[row, "ď.żlit2"] == "A" & data[row, "lit3"] =="X")
+      ile = ile+1}
+  return(ile)
+}
+ile_AX_correct = function(dane){
+  ile = 0
+  for (row in 1:nrow(dane)){
+    if (data[row, "ď.żlit2"] == "A" & data[row, "lit3"] =="X" & data[row, "key_resp_4.keys"] == "z")
+      ile = ile +1} 
+      return(ile)
+} 
+ile_AX_wrong = function(dane){
+  ile = 0
+  for (row in 1:nrow(dane)){
+    if (data[row, "ď.żlit2"] == "A" & data[row, "lit3"] =="X" & data[row, "key_resp_4.keys"] != "z")
+      ile = ile+1} 
+  return(ile)
+} 
+
+ile_smX = function(dane){
+  ile = 0
+  for (row in 1:nrow(dane)){
+    if (data[row, "ď.żlit2"] != "A" & data[row, "lit3"] =="X")
+      ile = ile+1 } 
+  return(ile)
+}
+
+ile_smX_correct = function(dane){
+  ile = 0
+  for (row in 1:nrow(dane)){
+    if (data[row, "ď.żlit2"] != "A" & data[row, "lit3"] =="X" & data[row, "key_resp_4.keys"] != "z" )
+      ile = ile+1} 
+  return(ile)
+}
+
+ile_smX_wrong = function(dane){
+  ile = 0
+  for (row in 1:nrow(dane)){
+    if (data[row, "ď.żlit2"] != "A" & data[row, "lit3"] =="X" & data[row, "key_resp_4.keys"] == "z" )
+      ile = ile+1} 
+  return(ile)
+}
+
+ile_Asm = function(dane){
+  ile = 0
+  for (row in 1:nrow(dane)){
+    if (data[row, "lit3"] =="A")
+      ile = ile+1} 
+  return(ile)
+}
+
+ile_Asm_correct = function(dane){
+  ile = 0
+  for (row in 1:nrow(dane)){
+    if (data[row, "lit3"] =="A" & data[row, "key_resp_4.keys"] != "z" )
+      ile = ile+1} 
+  return(ile)
+}
+
+ile_Asm_wrong = function(dane){
+  ile = 0
+  for (row in 1:nrow(dane)){
+    if (data[row, "lit3"] =="A" & data[row, "key_resp_4.keys"] == "z" )
+      ile = ile +1} 
+  return(ile)
+}
+
+
+ile_smsm = function(dane){
+  ile = 0
+  for (row in 1:nrow(dane)){
+    if (data[row, "ď.żlit2"] != "A" & data[row, "lit3"] !="X")
+      ile = ile+1} 
+  return(ile)
+}
+
+ile_smsm_correct = function(dane){
+  ile = 0
+  for (row in 1:nrow(dane)){
+    if (data[row, "ď.żlit2"] != "A" & data[row, "lit3"] !="X" & data[row, "key_resp_4.keys"] != "z" )
+      ile = ile+1} 
+  return(ile)
+}
+
+ile_smsm_wrong = function(dane){
+  ile = 0
+  for (row in 1:nrow(dane)){
+    if (data[row, "ď.żlit2"] != "A" & data[row, "lit3"] !="X" & data[row, "key_resp_4.keys"] == "z" )
+      ile = ile+1} 
+  return(ile)
+}
+nrow(data)
+
+library(dplyr)
+
+tr_avarage_AX_correct = function(dane){
+  dane_1 = filter(dane, ď.żlit2 == "A" & lit3 == "X"& key_resp_4.keys =="z")
+  mean(dane_1$key_resp_4.rt)
+}
+tr_avarage_smX_wrong = function(dane){
+  dane_1 = filter(dane, ď.żlit2 != "A" & lit3 == "X"& key_resp_4.keys =="z")
+  mean(dane_1$key_resp_4.rt)
+}
+tr_avarage_smA_wrong = function(dane){
+  dane_1 = filter(dane, lit3 == "A"& key_resp_4.keys =="z")
+  mean(dane_1$key_resp_4.rt)
+}
+x = data.frame("ile ogólem" =c(ile_AX(data), ile_smX(data), ile_Asm(data), ile_smsm(data)) , "poprawne" = c(ile_AX_correct(data), ile_smX_correct(data),ile_Asm_correct(data), ile_smsm_correct(data)), 
+               "bledne" = c(ile_AX_wrong(data), ile_smX_wrong(data), ile_Asm_wrong(data), ile_smsm_wrong(data)), "procent poprawnych" = c(ile_AX_correct(data)/ile_AX(data)*100, 
+               ile_smX_correct(data)/ile_smX(data) *100, ile_Asm_correct(data)/ile_Asm(data)*100, ile_smsm_correct(data)/ile_smsm(data)*100),
+               "tr_avarage" = c(tr_avarage_AX_correct(data), tr_avarage_smX_wrong(data), tr_avarage_smA_wrong(data), "-"))
+rownames(x)= c("A-->X (poprawne)", "sm --> X", "sm-->A", "sm-->sm")  
