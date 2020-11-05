@@ -1,8 +1,10 @@
 import pandas as pd
-import numpy as np
-data = pd.read_csv('CV_34_CAT.csv') # Jupyter\
+import os
+folder = r'C:\Users\Adam\Desktop\dane_CAT' #my folder
 
 def divide(data):
+    if len(data) <= 5: #empty tables
+        return
     inf = pd.DataFrame(columns = ['how_many','how_many_correct','%correct','tr_average','tr_sd','tr_median'],index = ['A->X','sm->A','sm->X','sm->sm'])
     zer = data[data['target_type'] == 0]
     two = data[data['target_type'] == 2]
