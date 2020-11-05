@@ -5,5 +5,5 @@ folder = r'C:\Users\Adam\Desktop\dane_CAT' #my folder
 for filename in os.scandir(folder):
     if filename.path.endswith(".csv") and (filename.name[2] == chr(95)): #chr(95) == '_'
         print(filename.name)
-        f = pd.read_csv(filename.path)
-        print(divide(f))
+        f = pd.read_csv(filename.path) 
+        print(divide(f)) # it shows warning - it is caused by numpy - there is comparison between numpy and "normal" python objects what can be problematic if the code is run with diffrent versions of python (I am using 3.8)
