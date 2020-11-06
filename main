@@ -1,5 +1,4 @@
-import pandas as pd
-import os
+
 folder = r'C:\Users\Adam\Desktop\dane_CAT' #my folder
 
 for filename in os.scandir(folder):
