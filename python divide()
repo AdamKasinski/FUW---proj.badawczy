@@ -21,7 +21,10 @@ def divide(data):
             inf['%correct']['sm->sm'] = (inf['how_many_correct']['sm->sm'])/ len(zer['lit2'])*100
             if inf['%correct']['sm->sm'] != 100:
                 inf['tr_average']['sm->sm'] = zer[zer['key_resp_4.rt'] != 'NaN'].mean()['key_resp_4.rt']
-                inf['tr_sd']['sm->sm'] = zer[zer['key_resp_4.rt'] != 'NaN'].std()['key_resp_4.rt']
+                if inf['how_many']['sm->sm'] - inf['how_many_correct']['sm->sm'] != 1:
+                    inf['tr_sd']['sm->sm'] = zer[zer['key_resp_4.rt'] != 'NaN'].std()['key_resp_4.rt']
+                else:                
+                    inf['tr_sd']['sm->sm'] = -1
                 inf['tr_median']['sm->sm'] = zer[zer['key_resp_4.rt'] != 'NaN'].median()['key_resp_4.rt']
             else:
                 inf['tr_average']['sm->sm'] = -1
@@ -33,7 +36,10 @@ def divide(data):
             inf['how_many']['sm->A'] = len(two['lit2'])
             if inf['%correct']['sm->A'] != 100:
                 inf['tr_average']['sm->A'] = two[two['key_resp_4.rt'] != 'NaN'].mean()['key_resp_4.rt']
-                inf['tr_sd']['sm->A'] = two[two['key_resp_4.rt'] != 'NaN'].std()['key_resp_4.rt']
+                if inf['how_many']['sm->A'] - inf['how_many_correct']['sm->A'] != 1:
+                    inf['tr_sd']['sm->A'] = zer[zer['key_resp_4.rt'] != 'NaN'].std()['key_resp_4.rt']
+                else:                
+                    inf['tr_sd']['sm->A'] = -1
                 inf['tr_median']['sm->A'] = two[two['key_resp_4.rt'] != 'NaN'].median()['key_resp_4.rt']
             else:
                 inf['tr_average']['sm->A'] = -1
@@ -45,11 +51,13 @@ def divide(data):
             inf['%correct']['sm->X'] = (inf['how_many_correct']['sm->X'])/ len(three['lit2'])*100
             if inf['%correct']['sm->X'] != 100:
                 inf['tr_average']['sm->X'] = three[three['key_resp_4.rt'] != 'NaN'].mean()['key_resp_4.rt']
-                inf['tr_sd']['sm->X'] = three[three['key_resp_4.rt'] != 'NaN'].std()['key_resp_4.rt']
+                if inf['how_many']['sm->X'] - inf['how_many_correct']['sm->X'] != 1:
+                    inf['tr_sd']['sm->X'] = zer[zer['key_resp_4.rt'] != 'NaN'].std()['key_resp_4.rt']
+                else:                
+                    inf['tr_sd']['sm->X'] = -1
                 inf['tr_median']['sm->X'] = three[three['key_resp_4.rt'] != 'NaN'].median()['key_resp_4.rt']
             else:
                 inf['tr_average']['sm->X'] = -1
                 inf['tr_sd']['sm->X'] = -1
                 inf['tr_median']['sm->X'] = -1
     return inf
-divide(data)
