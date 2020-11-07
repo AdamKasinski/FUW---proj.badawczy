@@ -1,0 +1,19 @@
+
+folder  #folder which is iterated
+
+def compute_all():
+    
+    df_all = pd.DataFrame(0,columns = ['how_many','how_many_correct','%correct'],
+                          index = ['A->X','sm->A','sm->X','sm->sm'])
+    
+    for filename in os.scandir(folder):
+        if filename.path.endswith(".csv") and filename.name[2] == chr(95): #chr(95) == '_'
+            f = pd.read_csv(filename.path)
+            if len(f) > 5:
+                df = divide(f)
+                
+                df_all['how_many'] += df['how_many']
+                df_all['how_many_correct'] += df['how_many_correct']
+        
+    df_all['%correct'] = df_all['how_many_correct']/df_all['how_many']*100
+    return df_all 
