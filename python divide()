@@ -10,20 +10,20 @@ def divide(data):
             inf['how_many']['A->X'] = len(five['lit2'])
             inf['how_many_correct']['A->X'] = five[five['key_resp_4.keys'] == 'z'].count()['key_resp_4.keys']
             inf['%correct']['A->X'] = (inf['how_many_correct']['A->X'])/ len(five['lit2'])*100
-            inf['tr_average']['A->X'] = five[five['key_resp_4.rt'] != 'NaN'].mean()['key_resp_4.rt']
-            inf['tr_sd']['A->X'] = five[five['key_resp_4.rt'] != 'NaN'].std()['key_resp_4.rt']
-            inf['tr_median']['A->X'] = five[five['key_resp_4.rt'] != 'NaN'].median()['key_resp_4.rt']
+            inf['tr_average']['A->X'] = five[np.isnan(five['key_resp_4.rt'])].mean()['key_resp_4.rt']
+            inf['tr_sd']['A->X'] = five[np.isnan(five['key_resp_4.rt'])].std()['key_resp_4.rt']
+            inf['tr_median']['A->X'] = five[np.isnan(five['key_resp_4.rt'])].median()['key_resp_4.rt']
         elif i == 'zer':
             inf['how_many']['sm->sm'] = len(zer['lit2'])
             inf['how_many_correct']['sm->sm'] = zer[zer['key_resp_4.keys'] == 'None'].count()['key_resp_4.keys']
             inf['%correct']['sm->sm'] = (inf['how_many_correct']['sm->sm'])/ len(zer['lit2'])*100
             if inf['%correct']['sm->sm'] != 100:
-                inf['tr_average']['sm->sm'] = zer[zer['key_resp_4.rt'] != 'NaN'].mean()['key_resp_4.rt']
+                inf['tr_average']['sm->sm'] = zer[np.isnan(zer['key_resp_4.rt'])].mean()['key_resp_4.rt']
                 if inf['how_many']['sm->sm'] - inf['how_many_correct']['sm->sm'] != 1:
-                    inf['tr_sd']['sm->sm'] = zer[zer['key_resp_4.rt'] != 'NaN'].std()['key_resp_4.rt']
+                    inf['tr_sd']['sm->sm'] = zer[np.isnan(zer['key_resp_4.rt'])].std()['key_resp_4.rt']
                 else:                
                     inf['tr_sd']['sm->sm'] = -1
-                inf['tr_median']['sm->sm'] = zer[zer['key_resp_4.rt'] != 'NaN'].median()['key_resp_4.rt']
+                inf['tr_median']['sm->sm'] = zer[np.isnan(zer['key_resp_4.rt'])].median()['key_resp_4.rt']
             else:
                 inf['tr_average']['sm->sm'] = -1
                 inf['tr_sd']['sm->sm'] = -1
@@ -33,12 +33,12 @@ def divide(data):
             inf['%correct']['sm->A'] = ((inf['how_many_correct']['sm->A'])/ len(two['lit2']))*100
             inf['how_many']['sm->A'] = len(two['lit2'])
             if inf['%correct']['sm->A'] != 100:
-                inf['tr_average']['sm->A'] = two[two['key_resp_4.rt'] != 'NaN'].mean()['key_resp_4.rt']
+                inf['tr_average']['sm->A'] = two[np.isnan(two['key_resp_4.rt'])].mean()['key_resp_4.rt']
                 if inf['how_many']['sm->A'] - inf['how_many_correct']['sm->A'] != 1:
-                    inf['tr_sd']['sm->A'] = zer[zer['key_resp_4.rt'] != 'NaN'].std()['key_resp_4.rt']
+                    inf['tr_sd']['sm->A'] = zer[np.isnan(zer['key_resp_4.rt'])].std()['key_resp_4.rt']
                 else:                
                     inf['tr_sd']['sm->A'] = -1
-                inf['tr_median']['sm->A'] = two[two['key_resp_4.rt'] != 'NaN'].median()['key_resp_4.rt']
+                inf['tr_median']['sm->A'] = two[np.isnan(two['key_resp_4.rt'])].median()['key_resp_4.rt']
             else:
                 inf['tr_average']['sm->A'] = -1
                 inf['tr_sd']['sm->A'] = -1
@@ -48,12 +48,12 @@ def divide(data):
             inf['how_many_correct']['sm->X'] = three[three['key_resp_4.keys'] == 'None'].count()['key_resp_4.keys']
             inf['%correct']['sm->X'] = (inf['how_many_correct']['sm->X'])/ len(three['lit2'])*100
             if inf['%correct']['sm->X'] != 100:
-                inf['tr_average']['sm->X'] = three[three['key_resp_4.rt'] != 'NaN'].mean()['key_resp_4.rt']
+                inf['tr_average']['sm->X'] = three[np.isnan(three['key_resp_4.rt'])].mean()['key_resp_4.rt']
                 if inf['how_many']['sm->X'] - inf['how_many_correct']['sm->X'] != 1:
-                    inf['tr_sd']['sm->X'] = zer[zer['key_resp_4.rt'] != 'NaN'].std()['key_resp_4.rt']
+                    inf['tr_sd']['sm->X'] = zer[np.isnan(zer['key_resp_4.rt'])].std()['key_resp_4.rt']
                 else:                
                     inf['tr_sd']['sm->X'] = -1
-                inf['tr_median']['sm->X'] = three[three['key_resp_4.rt'] != 'NaN'].median()['key_resp_4.rt']
+                inf['tr_median']['sm->X'] = three[np.isnan(three['key_resp_4.rt'])].median()['key_resp_4.rt']
             else:
                 inf['tr_average']['sm->X'] = -1
                 inf['tr_sd']['sm->X'] = -1
